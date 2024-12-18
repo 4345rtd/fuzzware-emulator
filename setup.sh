@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[[ -f /.dockerenv || ! -z $VIRTUAL_ENV ]] || { echo "[ERROR] You want to be installing this in a virtual environment. Did you call this script standalone?"; exit 1; }
+[[ -z $VIRTUAL_ENV ]] || { echo "[ERROR] You want to be installing this in a virtual environment. Did you call this script standalone?"; exit 1; }
 
 ./get_afl.sh
 make -C AFLplusplus clean all || {
@@ -8,7 +8,7 @@ make -C AFLplusplus clean all || {
     exit 1
 }
 
-echo "[*] Building afl and Unicorn"
+echo "[*] Building afl and Unicorn for seedpool"
 UNICORN_QEMU_FLAGS="--python=/usr/bin/python3" make -C afl clean all || exit 1
 pushd unicorn; USERNAME=`whoami` ./build_unicorn.sh || { popd; exit 1; }; popd
 
