@@ -25,7 +25,7 @@ if [ ! -e afl ]; then
     unzip $ARCHIVE || exit 1
     mv "$AFL_EXTRACT_DIR" afl
 
-    patch -p0 < afl.patch || {
+    patch -p0 < afl-seedpool.patch || {
         echo "Failed to apply AFL patch"
         exit 1
     }
